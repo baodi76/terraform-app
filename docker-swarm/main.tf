@@ -12,9 +12,9 @@ module "vpc_test" {
 
 }
 
-module "spot_instance_1" {
+module "spot_instance" {
   source = "../modules/ec2/spot"
-  #count = 1
+  count = 2
 
   #ami               = "ami-077adae4d983338da"
   ami             = var.ami
@@ -25,6 +25,7 @@ module "spot_instance_1" {
 
 }
 
+/*
 module "spot_instance_2" {
   source = "../modules/ec2/spot"
 
@@ -34,7 +35,7 @@ module "spot_instance_2" {
   security_groups = [var.default_security_group_id]
   instance_type = var.instance_type
 
-}
+}*/
 
 # for  security group  rules
 resource "aws_security_group_rule" "sg_rule-1" {
@@ -56,7 +57,7 @@ resource "aws_security_group_rule" "sg_rule-spot-public-node-1" {
   from_port         = -1
   to_port           = -1
   protocol          = "all"
-  cidr_blocks       = ["${module.spot_instance_1.spot_public_ip}/32"]
+  cidr_blocks       = ["${module.spot_instance[0].spot_public_ip}/32"]
   security_group_id = var.default_security_group_id
 }
 
@@ -67,7 +68,7 @@ resource "aws_security_group_rule" "sg_rule-spot-public-node-2" {
   from_port         = -1
   to_port           = -1
   protocol          = "all"
-  cidr_blocks       = ["${module.spot_instance_2.spot_public_ip}/32"]
+  cidr_blocks       = ["${module.spot_instance[1].spot_public_ip}/32"]
   security_group_id = var.default_security_group_id
 }
 

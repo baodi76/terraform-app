@@ -4,23 +4,23 @@ output "vpc_id" {
 }
 
 output "spot_instance_1_public_ip" {
-  value = module.spot_instance_1.spot_public_ip
+  value = module.spot_instance[0].spot_public_ip
   description = "value of spot public ip"
 }
 
 
 output "spot_request_1_id" {
-  value = module.spot_instance_1.spot_request_id
+  value = module.spot_instance[0].spot_request_id
   description = "value of spot request id"
 }
 
 output "spot_instance_2_public_ip" {
-  value = module.spot_instance_2.spot_public_ip
+  value = module.spot_instance[1].spot_public_ip
   description = "value of spot public ip"
 }
 
 
 output "spot_request_2_id" {
-  value = module.spot_instance_2.spot_request_id
+  value = module.spot_instance[1].spot_request_id
   description = "value of spot request id"
 }
