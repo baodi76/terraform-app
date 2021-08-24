@@ -12,6 +12,8 @@ variable "private_subnets_cidr" {
 
 }
 
+
+
 variable "default_subnet_id" {
   description = "value of subnet id"
   type        = string
