@@ -51,16 +51,18 @@ resource "aws_security_group_rule" "sg_rule-1" {
 }
 
 # for  security group  rules ==${module.spot_instance.spot_request_id}
-resource "aws_security_group_rule" "sg_rule-spot-public-node-1" {
-  description       = "swarm ingress public IP rules-1"
+resource "aws_security_group_rule" "sg_rule-spot-public-node" {
+  count =  2
+  description       = "swarm ingress public IP rules-${count.index+1}"
   type              = "ingress"
   from_port         = -1
   to_port           = -1
   protocol          = "all"
-  cidr_blocks       = ["${module.spot_instance[0].spot_public_ip}/32"]
+  cidr_blocks       = ["${module.spot_instance[count.index].spot_public_ip}/32"]
   security_group_id = var.default_security_group_id
 }
 
+/*
 # for  security group  rules ==${module.spot_instance.spot_request_id}
 resource "aws_security_group_rule" "sg_rule-spot-public-node-2" {
   description       = "swarm ingress public IP rules-2"
@@ -71,5 +73,5 @@ resource "aws_security_group_rule" "sg_rule-spot-public-node-2" {
   cidr_blocks       = ["${module.spot_instance[1].spot_public_ip}/32"]
   security_group_id = var.default_security_group_id
 }
-
+*/
 
