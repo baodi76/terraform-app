@@ -14,7 +14,7 @@ module "vpc_test" {
 
 module "spot_instance" {
   source = "../modules/ec2/spot"
-  count = 2
+  count = 3
 
   #ami               = "ami-077adae4d983338da"
   ami             = var.ami
