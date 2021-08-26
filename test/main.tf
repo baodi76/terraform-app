@@ -14,7 +14,7 @@ module "vpc_test" {
 
 module "spot_instance" {
   source = "../modules/ec2/spot"
-  #count = 1
+  count = 1
 
   #ami               = "ami-077adae4d983338da"
   ami             = var.ami
@@ -54,7 +54,7 @@ resource "aws_security_group_rule" "sg_rule-spot-public" {
   from_port         = -1
   to_port           = -1
   protocol          = "all"
-  cidr_blocks       = ["${module.spot_instance.spot_public_ip}/32"]
+  cidr_blocks       = ["${module.spot_instance[0].spot_public_ip}/32"]
   security_group_id = var.default_security_group_id
 }
 

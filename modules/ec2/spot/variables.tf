@@ -34,7 +34,7 @@ variable "subnet_id" {
 variable "volume_size" {
   description = "volume size"
   type        = string
-  default     = "10"
+  default     = "8"
 }
 
 variable "volume_type" {

@@ -47,7 +47,7 @@ resource "aws_spot_instance_request" "docker_swarm_spot" {
 
   root_block_device {
         tags                  = { 
-            Name="${var.volume_size}"
+            Name="${var.volume_size}g"
         }
         volume_size           = var.volume_size
         volume_type           = var.volume_type
