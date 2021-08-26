@@ -14,14 +14,16 @@ module "vpc_test" {
 
 module "spot_instance" {
   source = "../modules/ec2/spot"
-  count = 3
+  count  = var.instance_count
 
   #ami               = "ami-077adae4d983338da"
   ami             = var.ami
   spot_price      = var.spot_price
   subnet_id       = module.vpc_test.subnet_output.id
   security_groups = [var.default_security_group_id]
-  instance_type = var.instance_type
+  instance_type   = var.instance_type
+  # default size is 8G
+  volume_size     = var.volume_size
 
 }
 
@@ -52,8 +54,8 @@ resource "aws_security_group_rule" "sg_rule-1" {
 
 # for  security group  rules ==${module.spot_instance.spot_request_id}
 resource "aws_security_group_rule" "sg_rule-spot-public-node" {
-  count =  2
-  description       = "swarm ingress public IP rules-${count.index+1}"
+  count             = var.instance_count
+  description       = "swarm ingress public IP rules-${count.index + 1}"
   type              = "ingress"
   from_port         = -1
   to_port           = -1
