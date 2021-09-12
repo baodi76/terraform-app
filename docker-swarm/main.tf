@@ -52,6 +52,19 @@ resource "aws_security_group_rule" "sg_rule-1" {
   security_group_id = var.default_security_group_id
 }
 
+# for  security group  rules
+resource "aws_security_group_rule" "sg_rule-5001" {
+  description = "swarm ingress rules-2"
+  type        = "ingress"
+  from_port   = "5001"
+  to_port     = "5001"
+  protocol    = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]
+  # ["0.0.0.0/0"]
+  #ipv6_cidr_blocks  = ["::/0"]
+  security_group_id = var.default_security_group_id
+}
+
 # for  security group  rules ==${module.spot_instance.spot_request_id}
 resource "aws_security_group_rule" "sg_rule-spot-public-node" {
   count             = var.instance_count
